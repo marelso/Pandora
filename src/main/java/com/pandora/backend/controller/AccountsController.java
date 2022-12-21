@@ -2,9 +2,11 @@ package com.pandora.backend.controller;
 
 import com.pandora.backend.domain.Account;
 import com.pandora.backend.service.AccountsService;
+import com.pandora.backend.service.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 
@@ -25,13 +27,17 @@ public class AccountsController {
     }
 
     @PostMapping
-    public Account post(@RequestBody Account account) {
+    public Account post(@RequestBody Account account) throws NoSuchAlgorithmException {
+
+        account.setPassword(EncryptionService.encrypt(account.getPassword()));
+
         return this.service.save(account);
     }
 
     @PutMapping
     public Account put(@PathVariable Integer id,
                        @RequestBody Account account) {
+
         return this.service.save(account);
     }
 
