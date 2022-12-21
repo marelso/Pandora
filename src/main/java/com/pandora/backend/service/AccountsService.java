@@ -28,10 +28,6 @@ public class AccountsService {
         return this.repository.save(account);
     }
 
-    public void softDelete(Integer id) {
-        this.repository.softDelete(id);
-    }
-
     public void delete(Integer id) {
         this.repository.deleteById(id);
     }

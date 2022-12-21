@@ -35,11 +35,6 @@ public class AccountsController {
         return this.service.save(account);
     }
 
-    @DeleteMapping
-    public void softDelete(@PathVariable Integer id) {
-        this.service.softDelete(id);
-    }
-
     @DeleteMapping("/permanent")
     public void delete(@PathVariable Integer id) {
         this.service.delete(id);
