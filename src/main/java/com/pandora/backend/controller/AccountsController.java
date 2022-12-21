@@ -1,6 +1,6 @@
 package com.pandora.backend.controller;
 
-import com.pandora.backend.domain.Accounts;
+import com.pandora.backend.domain.Account;
 import com.pandora.backend.service.AccountsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,23 +15,23 @@ public class AccountsController {
     private AccountsService service;
 
     @GetMapping
-    public List<Accounts> getAll() {
+    public List<Account> getAll() {
         return this.service.findAll();
     }
 
     @GetMapping("/id")
-    public Accounts get(@PathVariable Integer id) {
+    public Account get(@PathVariable Integer id) {
         return this.service.findById(id);
     }
 
     @PostMapping
-    public Accounts post(@RequestBody Accounts account) {
+    public Account post(@RequestBody Account account) {
         return this.service.save(account);
     }
 
     @PutMapping
-    public Accounts put(@PathVariable Integer id,
-                        @RequestBody Accounts account) {
+    public Account put(@PathVariable Integer id,
+                       @RequestBody Account account) {
         return this.service.save(account);
     }
 
