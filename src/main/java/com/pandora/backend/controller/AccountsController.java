@@ -35,8 +35,7 @@ public class AccountsController {
     }
 
     @PutMapping
-    public Account put(@RequestParam(required = false) Boolean reset,
-                       @PathVariable Integer id,
+    public Account put(@PathVariable Integer id,
                        @RequestBody Account account) {
 
         return this.service.save(account);
