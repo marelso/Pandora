@@ -23,7 +23,10 @@ dependencies {
 	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 
+	//DB dependencies
 	runtimeOnly 'org.postgresql:postgresql'
+	implementation group: 'com.google.firebase', name: 'firebase-admin', version: '6.9.0'
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
