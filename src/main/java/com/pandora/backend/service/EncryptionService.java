@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 
 @Service
 public class EncryptionService {
-    static String encrypt(String input)
+    public static String encrypt(String input)
             throws NoSuchAlgorithmException {
 
         MessageDigest md = MessageDigest.getInstance("SHA-256");
