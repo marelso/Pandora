@@ -1,4 +1,4 @@
-package com.pandora.backend;
+package com.pandora.backend.configurer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
