@@ -1,4 +1,4 @@
-package com.pandora.backend.domain;
+package com.pandora.backend.domain.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
