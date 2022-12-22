@@ -34,7 +34,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             // -- Auth Request
-            "/auth"
+            "/auth/**",
     };
 
     @Override
