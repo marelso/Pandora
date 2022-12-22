@@ -1,8 +1,7 @@
 package com.pandora.backend.filters;
 
-import com.pandora.backend.domain.Account;
 import com.pandora.backend.service.AccountsService;
-import com.pandora.backend.service.AuthService;
+import com.pandora.backend.service.auth.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +20,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private AccountsService accountsService;
     @Autowired
-    private AuthService authService;
+    private JwtService jwtService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -34,13 +33,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if(authHeader != null && authHeader.startsWith("Bearer ")) {
             jwt = authHeader.substring(7);
-            username = authService.extractUserName(jwt);
+            username = jwtService.extractUserName(jwt);
         }
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            Account userDetails = this.accountsService.loadUserByUsername(username);
+            var userDetails = this.accountsService.loadUserByUsername(username);
 
-            if(authService.validateToken(jwt, userDetails)) {
+            if(jwtService.validateToken(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
