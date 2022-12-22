@@ -1,4 +1,4 @@
-package com.pandora.backend.service;
+package com.pandora.backend.service.auth;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class AuthService {
+public class JwtService {
     @Value("jwt.secret")
     private String secret;
 
