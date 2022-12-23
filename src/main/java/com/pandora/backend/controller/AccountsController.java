@@ -27,7 +27,7 @@ public class AccountsController {
         return this.service.findAll();
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public Account get(@RequestHeader("Authorization") String bearerToken,
                        @PathVariable Integer id) {
 
@@ -45,16 +45,20 @@ public class AccountsController {
         return this.service.save(account);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public Account put(@RequestHeader("Authorization") String bearerToken,
                        @PathVariable Integer id,
-                       @RequestBody Account account) {
+                       @RequestBody Account account) throws NoSuchAlgorithmException {
 
         authService.authorize(bearerToken, PermissionType.MANAGER);
+
+        if(account.getPassword() != null && !account.getPassword().isEmpty())
+            account.setPassword(EncryptionService.encrypt(account.getPassword()));
+
         return this.service.save(account);
     }
 
-    @DeleteMapping("/permanent")
+    @DeleteMapping
     public void delete(@RequestHeader("Authorization") String bearerToken,
                        @PathVariable Integer id) {
 
