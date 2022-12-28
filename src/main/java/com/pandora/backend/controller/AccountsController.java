@@ -4,7 +4,6 @@ import com.pandora.backend.domain.Account;
 import com.pandora.backend.domain.PermissionType;
 import com.pandora.backend.service.AccountsService;
 import com.pandora.backend.service.auth.AuthService;
-import com.pandora.backend.service.auth.JwtService;
 import com.pandora.backend.service.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
