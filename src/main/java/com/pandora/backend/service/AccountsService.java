@@ -6,6 +6,8 @@ import com.pandora.backend.domain.Email;
 import com.pandora.backend.domain.reset.ResetPasswordRequest;
 import com.pandora.backend.exception.NotFoundException;
 import com.pandora.backend.repository.AccountsRepository;
+import com.pandora.backend.service.util.EncryptionService;
+import com.pandora.backend.service.util.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

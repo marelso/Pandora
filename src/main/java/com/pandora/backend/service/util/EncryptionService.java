@@ -1,4 +1,4 @@
-package com.pandora.backend.service;
+package com.pandora.backend.service.util;
 
 import org.springframework.stereotype.Service;
 

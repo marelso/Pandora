@@ -1,4 +1,4 @@
-package com.pandora.backend.service;
+package com.pandora.backend.service.util;
 
 import com.pandora.backend.domain.Email;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class MailService {
 
     public Email sendEmail(Email email) {
         var message = new SimpleMailMessage();
-        message.setFrom("klein.marcelojr@gmail.com");
+        message.setFrom(from);
         message.setTo(email.getTo());
         message.setText(email.getBody());
         message.setSubject(email.getSubject());
