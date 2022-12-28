@@ -1,7 +1,9 @@
 package com.pandora.backend.controller;
 
 import com.pandora.backend.domain.Account;
+import com.pandora.backend.domain.Email;
 import com.pandora.backend.domain.PermissionType;
+import com.pandora.backend.domain.reset.ResetPasswordRequest;
 import com.pandora.backend.service.AccountsService;
 import com.pandora.backend.service.auth.AuthService;
 import com.pandora.backend.service.EncryptionService;
@@ -42,6 +44,16 @@ public class AccountsController {
         account.setPassword(EncryptionService.encrypt(account.getPassword()));
 
         return this.service.save(account);
+    }
+
+    @PostMapping("/reset/{id}")
+    public Email resertPassword(@RequestHeader("Authorization") String bearerToken,
+                                @PathVariable Integer id,
+                                @RequestBody ResetPasswordRequest request) throws NoSuchAlgorithmException {
+
+        authService.authorize(bearerToken, PermissionType.NONE);
+
+        return service.reset(id, request);
     }
 
     @PutMapping("/{id}")
