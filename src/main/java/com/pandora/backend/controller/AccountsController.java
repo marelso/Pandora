@@ -6,7 +6,7 @@ import com.pandora.backend.domain.PermissionType;
 import com.pandora.backend.domain.reset.ResetPasswordRequest;
 import com.pandora.backend.service.AccountsService;
 import com.pandora.backend.service.auth.AuthService;
-import com.pandora.backend.service.EncryptionService;
+import com.pandora.backend.service.util.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

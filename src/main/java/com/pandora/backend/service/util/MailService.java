@@ -1,4 +1,4 @@
-package com.pandora.backend.service;
+package com.pandora.backend.service.util;
 
 import com.pandora.backend.domain.Email;
 import org.springframework.beans.factory.annotation.Autowired;

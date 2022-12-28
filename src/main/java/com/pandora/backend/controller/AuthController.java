@@ -4,7 +4,7 @@ import com.pandora.backend.domain.auth.AuthRequest;
 import com.pandora.backend.domain.auth.AuthResponse;
 import com.pandora.backend.service.AccountsService;
 import com.pandora.backend.service.auth.JwtService;
-import com.pandora.backend.service.EncryptionService;
+import com.pandora.backend.service.util.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
