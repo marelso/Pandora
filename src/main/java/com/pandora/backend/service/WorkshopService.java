@@ -13,6 +13,9 @@ public class WorkshopService {
     @Autowired
     private WorkshopRepository repository;
 
+    @Autowired
+    private AccountsService accountsService;
+
     public List<Workshop> findAll() {
         return this.repository.findAllByDeletedFalse();
     }
@@ -23,6 +26,8 @@ public class WorkshopService {
     }
 
     public Workshop save(Workshop workshop) {
+        workshop.setIncludedBy(accountsService.findByUsername(workshop.getIncludedBy().getUsername()));
+
         return this.repository.save(workshop);
     }
 
