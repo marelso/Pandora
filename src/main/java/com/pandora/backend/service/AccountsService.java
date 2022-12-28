@@ -72,6 +72,10 @@ public class AccountsService implements UserDetailsService {
         throw new NotFoundException("Incorrect credentials for account with id: ${id}");
     }
 
+    public Account findByUsername(String username) throws UsernameNotFoundException {
+        return this.repository.findByUsername(username);
+    }
+
     @Override
     public Account loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.repository.findByUsername(username);
