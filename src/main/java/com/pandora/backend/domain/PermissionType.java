@@ -5,9 +5,9 @@ import static java.util.Collections.emptyList;
 import java.util.List;
 
 public enum PermissionType {
-    SUPER("SUPER", of("EMPLOYEE", "MANAGER", "SUPER")),
-    MANAGER("MANAGER", of("EMPLOYEE", "MANAGER")),
-    EMPLOYEE("EMPLOYEE", of("EMPLOYEE")),
+    SUPER("SUPER", of("NONE", "EMPLOYEE", "MANAGER", "SUPER")),
+    MANAGER("MANAGER", of("NONE", "EMPLOYEE", "MANAGER")),
+    EMPLOYEE("EMPLOYEE", of("NONE", "EMPLOYEE")),
     NONE("NONE", emptyList());
 
     private final String permissionId;
