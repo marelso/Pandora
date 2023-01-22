@@ -4,23 +4,25 @@ import com.pandora.backend.domain.Account;
 import com.pandora.backend.domain.Email;
 import com.pandora.backend.domain.PermissionType;
 import com.pandora.backend.domain.reset.ResetPasswordRequest;
+import com.pandora.backend.dto.AccountDto;
+import com.pandora.backend.dto.factory.AccountFactory;
 import com.pandora.backend.service.AccountsService;
 import com.pandora.backend.service.auth.AuthService;
 import com.pandora.backend.service.util.EncryptionService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("accounts")
+@RequiredArgsConstructor
 public class AccountsController {
-    @Autowired
-    private AccountsService service;
-    @Autowired
-    private AuthService authService;
+    private final AccountsService service;
+    private final AuthService authService;
+    private final AccountFactory factory;
 
     @GetMapping
     public List<Account> getAll(@RequestHeader("Authorization") String bearerToken) {
