@@ -47,6 +47,7 @@ public class AccountsController {
         return factory.from(service.save(account));
     }
 
+    //TODO this endpoint should be in another controller
     @PostMapping("/reset/{id}")
     public Email resertPassword(@RequestHeader("Authorization") String bearerToken,
                                 @PathVariable Integer id,
@@ -70,6 +71,7 @@ public class AccountsController {
         return factory.from(service.save(account));
     }
 
+    //TODO including softdelete for account entity. I think returning the deleted entity can be useful
     @DeleteMapping
     public void delete(@RequestHeader("Authorization") String bearerToken,
                        @PathVariable Integer id) {
