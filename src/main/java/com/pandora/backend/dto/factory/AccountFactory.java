@@ -4,8 +4,8 @@ import com.pandora.backend.domain.Account;
 import com.pandora.backend.dto.AccountDto;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class AccountFactory {
@@ -45,11 +45,8 @@ public class AccountFactory {
     }
 
     public List<AccountDto> from(List<Account> accounts) {
-        var list = new ArrayList<AccountDto>();
-
-        accounts.forEach((acc) -> list.add(from(acc)));
-
-        return list;
+        return accounts.stream().map(this::from)
+                .collect(Collectors.toList());
     }
 
     public Account update(Account account, AccountDto dto) {
