@@ -1,20 +1,20 @@
 package com.pandora.backend.service;
 
 import com.pandora.backend.domain.Workshop;
+import com.pandora.backend.dto.factory.AccountFactory;
 import com.pandora.backend.exception.NotFoundException;
 import com.pandora.backend.repository.WorkshopRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class WorkshopService {
-    @Autowired
     private WorkshopRepository repository;
-
-    @Autowired
     private AccountsService accountsService;
+    private AccountFactory accountFactory;
 
     public List<Workshop> findAll() {
         return this.repository.findAllByDeletedFalse();
