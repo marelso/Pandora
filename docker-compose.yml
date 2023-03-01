@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  postgres-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: 'pandoradb'
+      POSTGRES_USER: 'pandoradbadm'
+      POSTGRES_PASSWORD: 'pandoradbpass'
+    ports:
+      - 5432:5432
