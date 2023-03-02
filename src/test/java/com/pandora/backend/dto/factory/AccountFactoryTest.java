@@ -41,4 +41,32 @@ class AccountFactoryTest {
         assertThat(response.isHasToSetPassword(), equalTo(account.isHasToSetPassword()));
         assertFalse(response.isDeleted());
     }
+
+    @Test
+    @DisplayName("Single dto creation test.")
+    public void shouldUpdateCorrectlyAccountWithDtoData() {
+        //given
+        var account = AccountFixture.get()
+                .random()
+                .deleted(Boolean.FALSE)
+                .build();
+
+        var dto = AccountDtoFixture.get()
+                .random()
+                .build();
+
+        //when
+        var response = subject.update(account, dto);
+
+        //then
+        assertThat(response.getId(), equalTo(account.getId()));
+        assertThat(response.getUsername(), equalTo(dto.getUsername()));
+        assertThat(response.getEmail(), equalTo(dto.getEmail()));
+        assertThat(response.getName(), equalTo(dto.getName()));
+        assertThat(response.getLastName(), equalTo(dto.getLastName()));
+        assertThat(response.getPermissionType(), equalTo(dto.getPermissionType()));
+        assertThat(response.isHasToSetPassword(), equalTo(dto.isHasToSetPassword()));
+        assertThat(response.isDeleted(), equalTo(dto.isDeleted()));
+        assertThat(response.getPassword(), equalTo(account.getPassword()));
+    }
 }
