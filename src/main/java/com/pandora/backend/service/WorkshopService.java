@@ -12,9 +12,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class WorkshopService {
-    private WorkshopRepository repository;
-    private AccountsService accountsService;
-    private AccountFactory accountFactory;
+    private final WorkshopRepository repository;
+    private final AccountsService accountsService;
+    private final AccountFactory accountFactory;
 
     public List<Workshop> findAll() {
         return this.repository.findAllByDeletedFalse();
