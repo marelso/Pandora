@@ -4,48 +4,50 @@ import com.pandora.backend.domain.Account;
 import com.pandora.backend.domain.Email;
 import com.pandora.backend.domain.PermissionType;
 import com.pandora.backend.domain.reset.ResetPasswordRequest;
+import com.pandora.backend.dto.AccountDto;
+import com.pandora.backend.dto.factory.AccountFactory;
 import com.pandora.backend.service.AccountsService;
 import com.pandora.backend.service.auth.AuthService;
 import com.pandora.backend.service.util.EncryptionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("accounts")
+@RequiredArgsConstructor
 public class AccountsController {
-    @Autowired
-    private AccountsService service;
-    @Autowired
-    private AuthService authService;
+    private final AccountsService service;
+    private final AuthService authService;
+    private final AccountFactory factory;
 
     @GetMapping
-    public List<Account> getAll(@RequestHeader("Authorization") String bearerToken) {
+    public List<AccountDto> getAll(@RequestHeader("Authorization") String bearerToken) {
         authService.authorize(bearerToken, PermissionType.MANAGER);
-        return this.service.findAll();
+        return factory.from(service.findAll());
     }
 
     @GetMapping("/{id}")
-    public Account get(@RequestHeader("Authorization") String bearerToken,
+    public AccountDto get(@RequestHeader("Authorization") String bearerToken,
                        @PathVariable Integer id) {
 
         authService.authorize(bearerToken, PermissionType.MANAGER);
-        return this.service.findById(id);
+        return factory.from(service.findById(id));
     }
 
     @PostMapping
-    public Account post(@RequestHeader("Authorization") String bearerToken,
+    public AccountDto post(@RequestHeader("Authorization") String bearerToken,
                         @RequestBody Account account) throws NoSuchAlgorithmException {
 
         authService.authorize(bearerToken, PermissionType.MANAGER);
         account.setPassword(EncryptionService.encrypt(account.getPassword()));
 
-        return this.service.save(account);
+        return factory.from(service.save(account));
     }
 
+    //TODO this endpoint should be in another controller
     @PostMapping("/reset/{id}")
     public Email resertPassword(@RequestHeader("Authorization") String bearerToken,
                                 @PathVariable Integer id,
@@ -57,7 +59,7 @@ public class AccountsController {
     }
 
     @PutMapping("/{id}")
-    public Account put(@RequestHeader("Authorization") String bearerToken,
+    public AccountDto put(@RequestHeader("Authorization") String bearerToken,
                        @PathVariable Integer id,
                        @RequestBody Account account) throws NoSuchAlgorithmException {
 
@@ -66,9 +68,10 @@ public class AccountsController {
         if(account.getPassword() != null && !account.getPassword().isEmpty())
             account.setPassword(EncryptionService.encrypt(account.getPassword()));
 
-        return this.service.save(account);
+        return factory.from(service.save(account));
     }
 
+    //TODO including softdelete for account entity. I think returning the deleted entity can be useful
     @DeleteMapping
     public void delete(@RequestHeader("Authorization") String bearerToken,
                        @PathVariable Integer id) {
