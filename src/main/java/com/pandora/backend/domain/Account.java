@@ -1,6 +1,8 @@
 package com.pandora.backend.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +15,8 @@ import java.util.Collection;
 @Table(name = "accounts")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Account implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
