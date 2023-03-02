@@ -15,7 +15,7 @@ public class AccountDtoFixture {
     private boolean hasToSetPassword = true;
     private boolean deleted;
 
-    public static AccountDtoFixture anAccountDto() {
+    public static AccountDtoFixture get() {
         return new AccountDtoFixture();
     }
 

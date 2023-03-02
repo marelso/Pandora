@@ -21,9 +21,9 @@ class AccountFactoryTest {
     private AccountFactory subject;
 
     @Test
-    @DisplayName("")
+    @DisplayName("Single dto creation test.")
     public void shouldCreateAccountDtoWhenAccountIsActive() {
-        var account = AccountFixture.anAccountData()
+        var account = AccountFixture.get()
                 .random()
                 .deleted(Boolean.FALSE)
                 .build();
