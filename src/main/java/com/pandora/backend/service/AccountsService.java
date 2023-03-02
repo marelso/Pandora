@@ -8,6 +8,7 @@ import com.pandora.backend.exception.NotFoundException;
 import com.pandora.backend.repository.AccountsRepository;
 import com.pandora.backend.service.util.EncryptionService;
 import com.pandora.backend.service.util.MailService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,22 +20,39 @@ import java.util.Random;
 
 
 @Service
+@RequiredArgsConstructor
 public class AccountsService implements UserDetailsService {
-    @Autowired
-    private AccountsRepository repository;
-    @Autowired
-    private MailService mailService;
+    private final AccountsRepository repository;
+    private final MailService mailService;
 
     public List<Account> findAll() {
         return this.repository.findAllByDeletedFalse();
     }
 
     public Account findById(Integer id) {
+        return get(id);
+    }
+
+    private Account get(Integer id) {
         return this.repository.findById(id)
                 .orElseThrow(() -> new NotFoundException("There is no account with id: ${id}"));
     }
 
     public Account save(Account account) {
+        return this.repository.save(account);
+    }
+
+    public Account update(Integer id, Account updated) {
+        var account = get(id);
+
+        account.setUsername(updated.getUsername());
+        account.setEmail(updated.getEmail());
+        account.setName(updated.getName());
+        account.setLastName(updated.getLastName());
+        account.setDeleted(updated.isDeleted());
+        account.setHasToSetPassword(updated.isHasToSetPassword());
+        account.setPermissionType(updated.getPermissionType());
+
         return this.repository.save(account);
     }
 

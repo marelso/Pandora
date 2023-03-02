@@ -68,7 +68,7 @@ public class AccountsController {
         if(account.getPassword() != null && !account.getPassword().isEmpty())
             account.setPassword(EncryptionService.encrypt(account.getPassword()));
 
-        return factory.from(service.save(account));
+        return factory.from(service.update(id, account));
     }
 
     //TODO including softdelete for account entity. I think returning the deleted entity can be useful

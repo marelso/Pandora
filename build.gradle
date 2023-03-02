@@ -39,6 +39,8 @@ dependencies {
 
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation 'eu.codearte.catch-exception:catch-exception:2.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

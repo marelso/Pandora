@@ -50,7 +50,7 @@ public class AccountFactory {
     }
 
     public Account update(Account account, AccountDto dto) {
-        account.setUsername(dto.getName());
+        account.setUsername(dto.getUsername());
         account.setEmail(dto.getEmail());
         account.setName(dto.getName());
         account.setLastName(dto.getLastName());
