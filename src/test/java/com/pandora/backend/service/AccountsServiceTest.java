@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Optional;
 
@@ -36,18 +37,30 @@ class AccountsServiceTest {
 
     @Test
     public void shouldThrowExceptionWhenThereIsNoAccountWithGivenId() {
-        //given
-        final Integer accountId = Integer.valueOf(10);
+        final Integer invalidUserId = 999;
+        final Optional<Account> account = Optional.empty();
+        given(repository.findById(invalidUserId)).willReturn(account);
 
-        given(repository.findById(accountId)).willReturn(Optional.empty());
+
+        catchException(() -> service.findById(invalidUserId));
+
+
+        assertThat(caughtException(), instanceOf(NotFoundException.class));
+        then(repository).should().findById(invalidUserId);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenThereIsNoActiveUserWithGivenUsername() {
+        final String username = new String("account_example");
+        final Optional<Account> account = Optional.empty();
+        given(repository.findByUsername(username)).willReturn(account);
 
         //when
-        catchException(() -> service.findById(accountId));
+        catchException(() -> service.findByUsername(username));
 
         //then
-        assertThat(caughtException(), instanceOf(NotFoundException.class));
-        then(repository).should().findById(accountId);
-        verifyNoMoreInteractions(repository);
+        assertThat(caughtException(), instanceOf(UsernameNotFoundException.class));
+        then(repository).should().findByUsername(username);
     }
 
     @Test
