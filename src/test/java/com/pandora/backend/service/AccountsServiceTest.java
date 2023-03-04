@@ -55,10 +55,10 @@ class AccountsServiceTest {
         final Optional<Account> account = Optional.empty();
         given(repository.findByUsername(username)).willReturn(account);
 
-        //when
+
         catchException(() -> service.findByUsername(username));
 
-        //then
+
         assertThat(caughtException(), instanceOf(UsernameNotFoundException.class));
         then(repository).should().findByUsername(username);
     }
@@ -78,5 +78,21 @@ class AccountsServiceTest {
 
         assertThat(result, equalTo(account));
         then(repository).should().save(dto);
+    }
+
+    @Test
+    public void shouldRetrieveUserByUsernameWithSuccess() {
+        final Account account = AccountFixture.get().random().build();
+        final Optional<Account> optionalAccount = Optional.of(account);
+        final String username = new String("account_example");
+
+        given(repository.findByUsername(username)).willReturn(optionalAccount);
+
+
+        Account response = service.findByUsername(username);
+
+
+        assertThat(response, equalTo(account));
+        then(repository).should().findByUsername(username);
     }
 }
