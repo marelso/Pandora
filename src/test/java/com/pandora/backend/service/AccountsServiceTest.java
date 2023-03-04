@@ -50,7 +50,7 @@ class AccountsServiceTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenThereIsNoActiveUserWithGivenUsername() {
+    public void shouldThrowExceptionWhenThereIsNoActiveAccountWithGivenUsername() {
         final String username = new String("account_example");
         final Optional<Account> account = Optional.empty();
         given(repository.findByUsername(username)).willReturn(account);
