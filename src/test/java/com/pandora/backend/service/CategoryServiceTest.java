@@ -1,5 +1,6 @@
 package com.pandora.backend.service;
 
+import com.pandora.backend.domain.Category;
 import com.pandora.backend.exception.NotFoundException;
 import com.pandora.backend.repository.CategoryRepository;
 import org.junit.jupiter.api.Test;
@@ -13,12 +14,13 @@ import java.util.Optional;
 import static com.googlecode.catchexception.CatchException.catchException;
 import static com.googlecode.catchexception.CatchException.caughtException;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceTest {
@@ -58,5 +60,22 @@ class CategoryServiceTest {
         //then
         then(repository).should().softDelete(categoryId);
         verify(repository).softDelete(categoryId);
+    }
+
+    @Test
+    public void shouldReturnExpectedCategoryWhenSearchingById() {
+        //given
+        final Integer categoryId = 1;
+        final Category expected = mock(Category.class);
+        given(repository.findById(categoryId)).willReturn(Optional.of(expected));
+
+
+        //when
+        final Category category = subject.findById(categoryId);
+
+
+        //then
+        assertThat(category, equalTo(expected));
+        then(repository).should().findById(categoryId);
     }
 }
