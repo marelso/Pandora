@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +23,13 @@ public class CategoryService {
     }
 
     private Category get(Integer id) {
-        return this.repository.findById(id)
-                .orElseThrow(() -> new NotFoundException("User", id));
+        return find(id).orElseThrow(() -> new NotFoundException("User", id));
+    }
+    private Optional<Category> find(Integer id) {
+        return this.repository.findById(id);
+    }
+
+    public Category create(Category category) {
+        return this.repository.save(category);
     }
 }
