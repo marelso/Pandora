@@ -91,11 +91,16 @@ public class AccountsService implements UserDetailsService {
     }
 
     public Account findByUsername(String username) throws UsernameNotFoundException {
-        return this.repository.findByUsername(username);
+        return getByUsername(username);
     }
 
     @Override
     public Account loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.repository.findByUsername(username);
+        return getByUsername(username);
+    }
+
+    private Account getByUsername(String username) {
+        return this.repository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("There is no account with username: ${username}"));
     }
 }
