@@ -6,6 +6,7 @@ import com.pandora.backend.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +30,12 @@ public class CategoryService {
         return this.repository.findById(id);
     }
 
-    public Category create(Category category) {
+    public Category save(Category category) {
         return this.repository.save(category);
+    }
+
+    @Transactional
+    void delete(Integer id) {
+        this.repository.softDelete(id);
     }
 }
